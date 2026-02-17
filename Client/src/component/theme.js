@@ -13,6 +13,7 @@ const theme = createTheme({
         test: "#FF0000",
         blue: "rgb(121 175 248)",
         lightblue: "rgb(169 204 249)",
+        hover: "#D8DADF"
     },
 });
 
