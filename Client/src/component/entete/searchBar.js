@@ -41,7 +41,6 @@ const StyledInputBase = styled(InputBase)(() => ({
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
@@ -56,7 +55,11 @@ const StyledInputBase = styled(InputBase)(() => ({
 export default function SearchAppBar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ height: "56px", backgroundColor: theme.customColors.white }}>
+            <AppBar position="static" elevation={0} sx={{
+                height: "56px",
+                borderBottom: "1px solid #D8DADF",
+                backgroundColor: theme.customColors.white
+            }}>
                 <Toolbar
                     sx={{
                         minHeight: "56px !important",
@@ -84,7 +87,6 @@ export default function SearchAppBar() {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-
                     </Typography>
                     <Search>
                         <SearchIconWrapper>

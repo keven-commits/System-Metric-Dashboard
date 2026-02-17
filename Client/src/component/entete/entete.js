@@ -9,7 +9,7 @@ export default function Entete() {
             width: "100%",
             backgroundColor: theme.customColors.white
         }}>
-            <SearchAppBar/>
+            <SearchAppBar />
         </Box>
     )
 }

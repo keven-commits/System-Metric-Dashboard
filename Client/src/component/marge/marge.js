@@ -1,7 +1,8 @@
 import { Box } from "@mui/material"
 import theme from "../theme"
 import Logo from "./logo"
-import Test from "./test.js"
+import BoutonMarge from "./bouton.js"
+
 
 export default function Marge() {
     return (
@@ -16,9 +17,8 @@ export default function Marge() {
                     <Logo />
                 </Box>
                 <Box sx={{ flex: 3 }}>
-                    <Test />
+                    <BoutonMarge/>
                 </Box>
-
             </Box>
         </Box>
     )
