@@ -2,6 +2,7 @@ import { Box } from "@mui/material"
 import theme from "../theme"
 import Logo from "./logo"
 import BoutonMarge from "./bouton.js"
+import NestedList from "./list.js"
 
 
 export default function Marge() {
@@ -17,9 +18,10 @@ export default function Marge() {
                     <Logo />
                 </Box>
                 <Box sx={{ flex: 3 }}>
-                    <BoutonMarge/>
+                    <BoutonMarge />
                 </Box>
             </Box>
+            <NestedList/>
         </Box>
     )
 }
