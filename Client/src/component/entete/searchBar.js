@@ -8,6 +8,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import theme from "../theme"
+import ImageAvatars from './avatar';
 
 const Search = styled('div')(() => ({
     position: 'relative',
@@ -62,7 +63,8 @@ export default function SearchAppBar() {
                         height: "56px",
                         display: "flex",
                         alignItems: "center",
-                        padding: "0 8px"
+                        padding: "0 8px",
+                        gap: 3
                     }}
                 >
                     <IconButton
@@ -96,6 +98,7 @@ export default function SearchAppBar() {
                             }}
                         />
                     </Search>
+                    <ImageAvatars />
                 </Toolbar>
             </AppBar>
         </Box>
