@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(() => ({
     },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({onclick}) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" elevation={0} sx={{
@@ -78,6 +78,7 @@ export default function SearchAppBar() {
                             mr: 2,
                             color: theme.customColors.darkgrey
                         }}
+                        onClick={onclick}
                     >
                         <MenuIcon />
                     </IconButton>

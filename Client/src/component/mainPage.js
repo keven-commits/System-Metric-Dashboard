@@ -1,0 +1,46 @@
+import { Box, Paper } from "@mui/material"
+import theme from "./theme";
+import Marge from "./marge/marge";
+import Entete from "./entete/entete";
+import Dashboard from "./main/dashboard";
+import Settings from "./main/settings";
+import Metrics from "./main/metrics";
+import Logs from "./main/logs";
+import Alert from "@mui/material";
+import { useState } from "react";
+
+
+export default function MainPage({body}) {
+    const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(true);
+    const toggleBurgerMenu = () => {
+        setIsBurgerMenuOpen(!isBurgerMenuOpen)
+    }
+
+    return (
+        <Paper elevation={7}>
+            <Box sx={{
+                display: "flex",
+                overflow: "hidden",
+                height: "95vh",
+                borderRadius: "5px",
+                backgroundColor: theme.customColors.lightgrey,
+                color: theme.customColors.grey
+            }}>
+                <>
+                    <Marge isOpen={isBurgerMenuOpen} />
+                    <Box sx={{
+                        width: "100%"
+                    }}>
+                        <Entete onclick={toggleBurgerMenu}/>
+                        <Box sx={{
+                            marginRight: "30px",
+                            marginLeft: "30px",
+                        }}>
+                            {body()}
+                        </Box>
+                    </Box>
+                </>
+            </Box>
+        </Paper>
+    )
+}

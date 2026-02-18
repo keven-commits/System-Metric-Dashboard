@@ -1,7 +1,9 @@
-import Dashboard from "./component/dashboard";
+import Dashboard from "./component/main/dashboard";
+import MainPage from "./component/mainPage";
 
 export default function App() {
+
     return (
-        <Dashboard />
+        <MainPage body={Dashboard} />
     )
 }

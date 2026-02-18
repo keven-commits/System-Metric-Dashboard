@@ -8,13 +8,23 @@ import theme from '../theme';
 import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
+import { useState } from 'react';
 
 
-export default function NestedList() {
+export default function NestedList({ isOpen }) {
+
+  const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     console.log("open");
+    setOpen(!open)
   };
+
+  const textStyle = {
+    fontSize: "0.95rem",
+    fontWeight: 500,
+    letterSpacing: "0.06em",
+  }
 
   const itemStyle = {
 
@@ -54,31 +64,32 @@ export default function NestedList() {
         <ListItemIcon>
           <DonutSmallOutlinedIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        {isOpen && (<ListItemText
+          primary="Dashboard" />)}
       </ListItemButton>
       <ListItemButton onClick={handleClick} sx={itemStyle}>
         <ListItemIcon>
           <LegendToggleIcon />
         </ListItemIcon>
-        <ListItemText primary="Metrics" />
+        {isOpen && <ListItemText primary="Metrics" />}
       </ListItemButton>
       <ListItemButton onClick={handleClick} sx={itemStyle}>
         <ListItemIcon>
           <FeedOutlinedIcon />
         </ListItemIcon>
-        <ListItemText primary="Logs" />
+        {isOpen && <ListItemText primary="Logs" />}
       </ListItemButton>
       <ListItemButton onClick={handleClick} sx={itemStyle}>
         <ListItemIcon>
           <NotificationsNoneIcon />
         </ListItemIcon>
-        <ListItemText primary="Alerts" />
+        {isOpen && <ListItemText primary="Alerts" />}
       </ListItemButton>
       <ListItemButton onClick={handleClick} sx={itemStyle}>
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>
-        <ListItemText primary="Settings" />
+        {isOpen && <ListItemText primary="Settings" />}
       </ListItemButton>
     </List>
   );
