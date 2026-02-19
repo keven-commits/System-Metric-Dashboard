@@ -10,9 +10,15 @@ import Alert from "@mui/material";
 import { useState } from "react";
 
 
-export default function MainPage({body}) {
+export default function MainPage({ body }) {
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(true);
+    const [largeur, setLargeur] = useState("160px");
     const toggleBurgerMenu = () => {
+        if (isBurgerMenuOpen) {
+            setLargeur("60px")
+        } else {
+            setLargeur("160px")
+        }
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
     }
 
@@ -27,11 +33,11 @@ export default function MainPage({body}) {
                 color: theme.customColors.grey
             }}>
                 <>
-                    <Marge isOpen={isBurgerMenuOpen} />
+                    <Marge isOpen={isBurgerMenuOpen} largeur={largeur} />
                     <Box sx={{
                         width: "100%"
                     }}>
-                        <Entete onclick={toggleBurgerMenu}/>
+                        <Entete onclick={toggleBurgerMenu} />
                         <Box sx={{
                             marginRight: "30px",
                             marginLeft: "30px",

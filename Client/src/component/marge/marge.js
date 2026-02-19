@@ -6,23 +6,23 @@ import NestedList from "./list.js"
 import Version from "./version.js"
 
 
-export default function Marge({ isOpen }) {
+export default function Marge({ isOpen, largeur }) {
     return (
         <Box sx={{
             height: "100%",
-            width: "160px",
+            width: largeur,
             flexShrink: 0,
             display: "flex",
             flexDirection: "column",
             backgroundColor: theme.customColors.darkgrey
         }}>
             <Box sx={{ display: "flex" }}>
-                <Box sx={{ flex: 2 }}>
+                <Box sx={{ width: "60px" }}>
                     <Logo />
                 </Box>
-                <Box sx={{ flex: 3 }}>
+                {isOpen && <Box sx={{ width: "100px" }}>
                     <BoutonMarge />
-                </Box>
+                </Box>}
             </Box>
             <Box sx={{
                 flexGrow: 1,
@@ -33,7 +33,7 @@ export default function Marge({ isOpen }) {
             <Box sx={{
                 flexShrink: 0
             }}>
-                <Version />
+                {isOpen && <Version />}
             </Box>
         </Box>
     )
