@@ -27,7 +27,7 @@ export default function MainPage({ body }) {
             <Box sx={{
                 display: "flex",
                 overflow: "hidden",
-                height: "95vh",
+                height: "100vh",
                 borderRadius: "5px",
                 backgroundColor: theme.customColors.lightgrey,
                 color: theme.customColors.grey
@@ -35,12 +35,13 @@ export default function MainPage({ body }) {
                 <>
                     <Marge isOpen={isBurgerMenuOpen} largeur={largeur} />
                     <Box sx={{
-                        width: "100%"
+                        width: "100%",
                     }}>
                         <Entete onclick={toggleBurgerMenu} />
                         <Box sx={{
                             marginRight: "30px",
                             marginLeft: "30px",
+                            height: "90%"
                         }}>
                             {body()}
                         </Box>
