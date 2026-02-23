@@ -1,9 +1,9 @@
 import { Box } from "@mui/material"
-import theme from "../theme"
-import Logo from "./logo"
-import BoutonMarge from "./bouton.js"
-import NestedList from "./list.js"
-import Version from "./version.js"
+import theme from "../theme.jsx"
+import Logo from "./logo.jsx"
+import BoutonMarge from "./bouton.jsx"
+import NestedList from "./list.jsx"
+import Version from "./version.jsx"
 
 
 export default function Marge({ isOpen, largeur }) {

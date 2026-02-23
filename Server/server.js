@@ -1,29 +1,18 @@
 const express = require("express")
 const app = express()
 const port = 3000
-const osu = require("os-utils");
 const cors = require("cors");
 const si = require("systeminformation")
+const { liveCPUUtilisation, CPUUtilisation, getCPUHistory } = require("./information/cpuServer")
 
 app.use(cors());
 
-let cpuUsage = 0;
+CPUUtilisation();
 
-// update CPU every 10 seconds
-setInterval(() => {
-    osu.cpuUsage((v) => {
-        cpuUsage = (v * 100).toFixed(2);
-        console.log("CPU:", cpuUsage + "%");
-    });
-}, 10000);
-
-// endpoint
-app.get("/cpu", (req, res) => {
-    res.json({
-        usage: cpuUsage,
-        time: Date.now()
-    });
+app.get('/cpu', async (req, res) => {
+    res.write(getCPUHistory);
 });
+
 app.get("/gpu", (req, res) => {
     res.send("Hello World!")
 })

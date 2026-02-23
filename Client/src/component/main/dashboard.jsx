@@ -42,7 +42,6 @@ export default function Dashboard() {
             </Box>
 
             <Box sx={{
-                paddingTop: "15px",
                 flexGrow: 1,
                 overflow: "auto",
                 display: { xs: "flex", md: "grid" },
@@ -56,9 +55,8 @@ export default function Dashboard() {
                 {cards.map((card) => {
                     const Chart = card.chart;
                     return (
-                        <Paper elevation={1}>
+                        <Paper key={card.id} elevation={1}>
                             <Box
-                                key={card.id}
                                 sx={{
                                     backgroundColor: theme.customColors.white,
                                     borderRadius: "5px",

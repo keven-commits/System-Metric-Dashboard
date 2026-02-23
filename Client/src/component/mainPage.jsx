@@ -6,7 +6,7 @@ import Dashboard from "./main/dashboard";
 import Settings from "./main/settings";
 import Metrics from "./main/metrics";
 import Logs from "./main/logs";
-import Alert from "@mui/material";
+import Alert from "./main/alerts";
 import { useState } from "react";
 
 

@@ -1,17 +1,33 @@
-const express = require("express");
-const osu = require("os-utils");
-const cors = require("cors");
+const { cpuUsage } = require('os-utils');
+const si = require('systeminformation');
 
-const app = express();
-app.use(cors());
+const cpuHistory = []
 
-let cpuUsage = 0;
+function CPUUtilisation() {
+  setInterval(async () => {
+    try {
+      const load = await si.currentLoad();
+      const cpuUsage = load.currentLoad.toFixed(2);
+      const point = {ts: Date.now(), cpuUsage};
 
-// update CPU every 10 seconds
-setInterval(() => {
-  osu.cpuUsage((v) => {
-    cpuUsage = (v * 100).toFixed(2);
-    console.log("CPU:", cpuUsage + "%");
-  });
-}, 10000);
+      cpuHistory.push(point);
+
+      while (cpuHistory.length > 10) cpuHistory.shift();
+
+      console.log("CPU Usage:", cpuUsage + "%");
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  }, 5000);
+}
+
+function liveCPUUtilisation() {
+  return cpuUsage
+}
+
+function getCPUHistory() {
+  return cpuHistory
+}
+
+module.exports = {  liveCPUUtilisation, CPUUtilisation, getCPUHistory };
 
