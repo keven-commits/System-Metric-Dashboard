@@ -1,33 +1,29 @@
-const { cpuUsage } = require('os-utils');
 const si = require('systeminformation');
 
 const cpuHistory = []
+const cpuTableau = []
 
 function CPUUtilisation() {
   setInterval(async () => {
     try {
-      const load = await si.currentLoad();
-      const cpuUsage = load.currentLoad.toFixed(2);
-      const point = {ts: Date.now(), cpuUsage};
+      const ouvert = await si.currentLoad();
+      const cpuUtilisation = ouvert.currentLoad.toFixed(0);
+      const temps = { ts: Date.now(), cpuUtilisation };
 
-      cpuHistory.push(point);
+      cpuHistory.push(temps);
+      cpuTableau.push(temps);
 
-      while (cpuHistory.length > 10) cpuHistory.shift();
+      while (cpuTableau.length > 10) cpuTableau.shift();
 
-      console.log("CPU Usage:", cpuUsage + "%");
+      console.log(cpuTableau)
     } catch (err) {
       console.error("Error:", err);
     }
-  }, 5000);
-}
-
-function liveCPUUtilisation() {
-  return cpuUsage
+  }, 1000);
 }
 
 function getCPUHistory() {
-  return cpuHistory
+  return cpuHistory;
 }
-
-module.exports = {  liveCPUUtilisation, CPUUtilisation, getCPUHistory };
+module.exports = { CPUUtilisation, getCPUHistory };
 

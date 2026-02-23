@@ -3,14 +3,18 @@ const app = express()
 const port = 3000
 const cors = require("cors");
 const si = require("systeminformation")
-const { liveCPUUtilisation, CPUUtilisation, getCPUHistory } = require("./information/cpuServer")
+const { CPUUtilisation, getCPUHistory } = require("./information/cpuServer")
+const { GPUUtilisation, getGPUHistory } = require("./information/gpuServer");
+const { NetworkUtilisation, getNetworkHistory } = require("./information/networkServer");
 
 app.use(cors());
 
-CPUUtilisation();
+///CPUUtilisation();
+///GPUUtilisation();
+///NetworkUtilisation();
 
 app.get('/cpu', async (req, res) => {
-    res.write(getCPUHistory);
+    res.json("yoyoyo");
 });
 
 app.get("/gpu", (req, res) => {
