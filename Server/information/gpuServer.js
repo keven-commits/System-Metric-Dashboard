@@ -1,31 +1,18 @@
 const si = require('systeminformation');
 
-const gpuHistory = []
-const gpuTableau = []
+async function GPUUtilisation() {
 
-function GPUUtilisation() {
-    setInterval(async () => {
-        try {
-            const ouvert = await si.graphics();
-            const gpuUtilisationTest = ouvert.controllers[0].utilizationGpu;
-            const gpuUtilisation = Number(gpuUtilisationTest ?? 0);
-            const temps = { ts: Date.now(), gpuUtilisation };
+    const ouvert = await si.graphics();
+    const gpuUtilisationTest = ouvert.controllers[0].utilizationGpu;
+    const gpuUtilisation = Number(gpuUtilisationTest ?? 0);
 
-            gpuHistory.push(temps);
-            gpuTableau.push(temps);
+    return {
+        ts: Date.now(),
+        gpuUtilisation
+    }
 
-            while (gpuTableau.length > 10) gpuTableau.shift();
-
-            console.log(gpuTableau)
-
-        } catch (err) {
-            console.error("Error:", err);
-        }
-    }, 1000);
 }
 
-function getGPUHistory() {
-    return gpuHistory;
-}
-module.exports = { GPUUtilisation, getGPUHistory };
+module.exports = { GPUUtilisation };
+
 
