@@ -50,7 +50,7 @@ export default function Dashboard() {
                 gridTemplateRows: "1fr 1fr",
                 justifyContent: "space-between",
                 gap: "30px",
-                paddingTop: "30px"
+                paddingTop: "30px",
             }}>
                 {cards.map((card) => {
                     const Chart = card.chart;
@@ -58,16 +58,20 @@ export default function Dashboard() {
                         <Paper key={card.id} elevation={1}>
                             <Box
                                 sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
                                     backgroundColor: theme.customColors.white,
                                     borderRadius: "5px",
                                     py: "25px",
-                                    px: "35px"
+                                    px: "35px",
+                                    height: "280px"
                                 }}>
                                 <Typography
                                     variant="h6"
                                     color={theme.customColors.darkgrey}
-                                >{card.titre}</Typography>
-                                <Box >
+                                >{card.titre}
+                                </Typography>
+                                <Box sx={{ flex: 1, minHeight: 0}}>
                                     <Chart />
                                 </Box>
                             </Box>

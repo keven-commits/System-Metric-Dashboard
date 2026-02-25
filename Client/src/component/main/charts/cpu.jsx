@@ -1,74 +1,105 @@
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { RechartsDevtools } from '@recharts/devtools';
+import { useEffect, useState } from "react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
-// #region Sample data
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
-
-// #endregion
 const ChartCPU = () => {
+  const [data, setData] = useState([]);
+
+  const maxTicks = 6;
+  const interval = Math.ceil(data.length / maxTicks);
+
+  useEffect(() => {
+    const fetchCPU = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/cpu");
+        const json = await res.json();
+
+        if (!json?.cpuUtilisation && json?.cpuUtilisation !== 0) return;
+
+        const newPoint = {
+          time: new Date(json.ts).getTime(),
+          cpu: json.cpuUtilisation
+        };
+
+        setData(prev => {
+          const updated = [...prev, newPoint];
+          return updated.length > 30
+            ? updated.slice(updated.length - 30)
+            : updated;
+        });
+
+      } catch (err) {
+        console.error("Fetch CPU error:", err);
+      }
+    };
+
+    fetchCPU(); // premier appel immédiat
+
+    const interval = setInterval(fetchCPU, 10000); // 10 secondes
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <AreaChart
-      style={{ width: '100%', maxWidth: '700px', maxHeight: '70vh', aspectRatio: 1.618 }}
-      responsive
-      data={data}
-      margin={{
-        top: 20,
-        right: 0,
-        left: 0,
-        bottom: 0,
-      }}
-      onContextMenu={(_, e) => e.preventDefault()}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis width="auto" />
-      <Tooltip />
-      <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
-      <RechartsDevtools />
-    </AreaChart>
+    <div style={{ width: "100%", height: "100%", overflow: "visible" }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={data}
+          margin={{ top: 20, right: 0, left: 0, bottom: 24 }}
+          padding={{ right: 18 }}
+          overflow={"visible"}
+        >
+          <CartesianGrid
+            horizontal={true}
+            vertical={false}
+            stroke="#e0e0e0"
+          />
+          <defs>
+            <linearGradient id="degradeBleu" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#2E8FFF" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#2E8FFF" stopOpacity={0.1} />
+            </linearGradient>
+          </defs>
+          <XAxis
+            dataKey="time"
+            type="category"
+            interval={interval}
+            tickFormatter={(value) =>
+              new Date(value).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            }
+            tickLine={false}
+          />
+          <YAxis
+            domain={[0, 100]}
+            width={30}
+            tickLine={false}
+          />
+          <Tooltip
+            labelFormatter={(label) =>
+              new Date(label).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+            }
+            formatter={(value) => [`${Math.round(value)}%`, "CPU"]}
+          />
+          <Area
+            type="monotone"
+            dataKey="cpu"
+            stroke="#2E8FFF"
+            strokeWidth={2.5}
+            fill="url(#degradeBleu)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 

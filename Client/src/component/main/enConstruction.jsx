@@ -1,13 +1,13 @@
 import Title from "./title";
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
-export default function Logs() {
+export default function EnConstruction() {
     return (
         <>
             <Title>
-                Logs
             </Title>
-            <Box sx={{paddingTop: "15px"}}>
+            <Box sx={{ paddingTop: "15px" }}>
                 <Typography>En construction</Typography>
             </Box>
         </>

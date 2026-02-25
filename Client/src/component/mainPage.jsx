@@ -2,11 +2,6 @@ import { Box, Paper } from "@mui/material"
 import theme from "./theme";
 import Marge from "./marge/marge";
 import Entete from "./entete/entete";
-import Dashboard from "./main/dashboard";
-import Settings from "./main/settings";
-import Metrics from "./main/metrics";
-import Logs from "./main/logs";
-import Alert from "./main/alerts";
 import { useState } from "react";
 
 

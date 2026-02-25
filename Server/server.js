@@ -2,7 +2,6 @@ const express = require("express")
 const app = express()
 const port = 3000
 const cors = require("cors");
-const si = require("systeminformation")
 const { CPUUtilisation } = require("./information/cpuServer")
 const { GPUUtilisation } = require("./information/gpuServer");
 const { NetworkUtilisation } = require("./information/networkServer");

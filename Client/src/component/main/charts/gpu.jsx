@@ -51,7 +51,7 @@ const data = [
 const ChartGPU = () => {
   return (
     <AreaChart
-      style={{ width: '100%', maxWidth: '700px', maxHeight: '70vh', aspectRatio: 1.618 }}
+      style={{ width: "100%", height: "100%" }}
       responsive
       data={data}
       margin={{
@@ -62,11 +62,22 @@ const ChartGPU = () => {
       }}
       onContextMenu={(_, e) => e.preventDefault()}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <defs>
+        <linearGradient id="degradeVert" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#7CCF35" stopOpacity={0.4} />
+          <stop offset="95%" stopColor="#7CCF35" stopOpacity={0.05} />
+        </linearGradient>
+      </defs>
       <XAxis dataKey="name" />
       <YAxis width="auto" />
       <Tooltip />
-      <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+      <Area
+        type="monotone"
+        dataKey="uv"
+        stroke="#71BA32"
+        strokeWidth={3}
+        fill="url(#degradeVert)"
+      />
       <RechartsDevtools />
     </AreaChart>
   );
