@@ -1,31 +1,14 @@
 import Title from "./title";
-import { Box, Typography, Paper } from "@mui/material";
-import theme from "../theme"
-import { useState, useEffect } from "react";
+import { Box } from "@mui/material";
 import ChartCPU from "./charts/cpu";
 import ChartGPU from "./charts/gpu";
 import ChartNetwork from "./charts/network";
 import ChartDisk from "./charts/disk";
-
-const cards = [
-    { id: "cpu", titre: "CPU Usage (%)", chart: ChartCPU },
-    { id: "gpu", titre: "GPU Usage (%)", chart: ChartGPU },
-    { id: "network", titre: "Network I/O (MB/s)", chart: ChartNetwork },
-    { id: "disk", titre: "Disk Usage (%)", chart: ChartDisk }
-];
+import Card from "./card";
+import { useState } from "react";
 
 export default function Dashboard() {
-    const [deskTimeout, setDeskTimeout] = useState("abcd")
-
-    function SimulateData() {
-        setDeskTimeout("defg")
-    }
-
-    useEffect(() => {
-        const t = setTimeout(SimulateData, 10 * 1000)
-        return () => clearTimeout(t)
-    }, [])
-
+    const [gridTemplateColumns, setGridTemplateColumns] = useState("1fr 1fr")
     return (
         <Box sx={{
             height: "100%",
@@ -37,7 +20,6 @@ export default function Dashboard() {
             }}>
                 <Title>
                     System Metrics Dashboard
-                    {deskTimeout}
                 </Title>
             </Box>
 
@@ -46,40 +28,17 @@ export default function Dashboard() {
                 overflow: "auto",
                 display: { xs: "flex", md: "grid" },
                 flexDirection: "column",
-                gridTemplateColumns: "1fr 1fr",
+                gridTemplateColumns: gridTemplateColumns,
                 gridTemplateRows: "1fr 1fr",
                 justifyContent: "space-between",
                 gap: "30px",
                 paddingTop: "30px",
             }}>
-                {cards.map((card) => {
-                    const Chart = card.chart;
-                    return (
-                        <Paper key={card.id} elevation={1}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    backgroundColor: theme.customColors.white,
-                                    borderRadius: "5px",
-                                    py: "25px",
-                                    px: "35px",
-                                    height: "280px"
-                                }}>
-                                <Typography
-                                    variant="h6"
-                                    color={theme.customColors.darkgrey}
-                                >{card.titre}
-                                </Typography>
-                                <Box sx={{ flex: 1, minHeight: 0}}>
-                                    <Chart />
-                                </Box>
-                            </Box>
-                        </Paper>
-                    );
-                })}
+                <Card title={"CPU Usage(%)"} graph={ChartCPU} />
+                <Card title={"GPU Usage(%)"} graph={ChartGPU} />
+                <Card title={"Network I/O/s"} graph={ChartNetwork} />
+                <Card title={"Disk Usage(%)"} graph={ChartDisk} />
             </Box>
-
         </Box >
     )
 }

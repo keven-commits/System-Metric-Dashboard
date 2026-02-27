@@ -10,16 +10,9 @@ import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import { useState } from 'react';
 
+export default function NestedList({ isOpen, active, onClickDashboard, onClickAlerts, onClickLogs, onClickMetrics, onClickSettings }) {
 
-export default function NestedList({ isOpen }) {
-
-  const [open, setOpen] = useState(true);
-
-  const handleClick = () => {
-    console.log("open");
-    setOpen(!open)
-  };
-
+  const [selected, setSelected] = useState(true);
   const textStyle = {
     fontSize: "0.95rem",
     fontWeight: 500,
@@ -27,6 +20,18 @@ export default function NestedList({ isOpen }) {
   }
 
   const itemStyle = {
+    "height": {
+      height: 50
+    },
+
+    "&.Mui-selected": {
+      backgroundColor: theme.customColors.grey,
+      "& .MuiListItemIcon-root": {
+        color: theme.customColors.blue,
+      }, "& .MuiListItemText-primary": {
+        color: theme.customColors.white,
+      },
+    },
 
     "& .MuiListItemIcon-root": {
       minWidth: 34,
@@ -60,32 +65,47 @@ export default function NestedList({ isOpen }) {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <ListItemButton onClick={handleClick} sx={itemStyle}>
+      <ListItemButton
+        selected={active === "dashboard"}
+        onClick={onClickDashboard}
+        sx={itemStyle}>
         <ListItemIcon>
           <DonutSmallOutlinedIcon />
         </ListItemIcon>
         {isOpen && (<ListItemText
           primary="Dashboard" />)}
       </ListItemButton>
-      <ListItemButton onClick={handleClick} sx={itemStyle}>
+      <ListItemButton
+        selected={active === "metrics"}
+        onClick={onClickMetrics}
+        sx={itemStyle}>
         <ListItemIcon>
           <LegendToggleIcon />
         </ListItemIcon>
         {isOpen && <ListItemText primary="Metrics" />}
       </ListItemButton>
-      <ListItemButton onClick={handleClick} sx={itemStyle}>
+      <ListItemButton
+        selected={active === "logs"}
+        onClick={onClickLogs}
+        sx={itemStyle}>
         <ListItemIcon>
           <FeedOutlinedIcon />
         </ListItemIcon>
         {isOpen && <ListItemText primary="Logs" />}
       </ListItemButton>
-      <ListItemButton onClick={handleClick} sx={itemStyle}>
+      <ListItemButton
+        selected={active === "alerts"}
+        onClick={onClickAlerts}
+        sx={itemStyle}>
         <ListItemIcon>
           <NotificationsNoneIcon />
         </ListItemIcon>
         {isOpen && <ListItemText primary="Alerts" />}
       </ListItemButton>
-      <ListItemButton onClick={handleClick} sx={itemStyle}>
+      <ListItemButton
+        selected={active === "settings"}
+        onClick={onClickSettings}
+        sx={itemStyle}>
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>

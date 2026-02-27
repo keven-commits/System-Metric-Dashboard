@@ -3,9 +3,11 @@ import theme from "./theme";
 import Marge from "./marge/marge";
 import Entete from "./entete/entete";
 import { useState } from "react";
+import Dashboard from "./main/dashboard";
+import EnConstruction from "./main/enConstruction";
 
 
-export default function MainPage({ body }) {
+export default function MainPage() {
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(true);
     const [largeur, setLargeur] = useState("160px");
     const toggleBurgerMenu = () => {
@@ -15,6 +17,23 @@ export default function MainPage({ body }) {
             setLargeur("160px")
         }
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
+    }
+
+    const [body, setBody] = useState(<Dashboard />);
+    const onClickDashboard = () => {
+        setBody(<Dashboard />)
+    }
+    const onClickLogs = () => {
+        setBody(<EnConstruction titre={"Logs"}/>)
+    }
+    const onClickMetrics = () => {
+        setBody(<EnConstruction titre={"Metrics"}/>)
+    }
+    const onClickSettings = () => {
+        setBody(<EnConstruction titre={"Settings"}/>)
+    }
+    const onClickAlerts = () => {
+        setBody(<EnConstruction titre={"Alerts"}/>)
     }
 
     return (
@@ -28,7 +47,15 @@ export default function MainPage({ body }) {
                 color: theme.customColors.grey
             }}>
                 <>
-                    <Marge isOpen={isBurgerMenuOpen} largeur={largeur} />
+                    <Marge
+                        isOpen={isBurgerMenuOpen}
+                        largeur={largeur}
+                        onClickAlerts={onClickAlerts}
+                        onClickDashboard={onClickDashboard}
+                        onClickLogs={onClickLogs}
+                        onClickMetrics={onClickMetrics}
+                        onClickSettings={onClickSettings}
+                    />
                     <Box sx={{
                         width: "100%",
                     }}>
@@ -38,7 +65,7 @@ export default function MainPage({ body }) {
                             marginLeft: "30px",
                             height: "90%"
                         }}>
-                            {body()}
+                            {body}
                         </Box>
                     </Box>
                 </>

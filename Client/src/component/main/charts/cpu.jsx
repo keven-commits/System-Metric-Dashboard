@@ -10,46 +10,51 @@ import {
 } from "recharts";
 
 const ChartCPU = () => {
-  const [data, setData] = useState([]);
+
+  const [data, setData] = useState([
+
+  ]);
 
   const maxTicks = 6;
-  const interval = Math.ceil(data.length / maxTicks);
+  const intervalXAxis = Math.ceil(data.length / maxTicks);
+
+  const fetchCPU = async () => {
+    try {
+      const reponse = await fetch("http://localhost:3000/cpu");
+      const server = await reponse.json();
+
+      if (!server?.cpuUtilisation && server?.cpuUtilisation !== 0) return;
+
+      const nouveauPoint = {
+        time: new Date(server.ts).getTime(),
+        cpu: server.cpuUtilisation
+      };
+
+      console.log(nouveauPoint)
+
+      setData(prev => {
+
+        const updated = [...prev, nouveauPoint];
+        return updated
+      });
+
+    } catch (err) {
+      console.error("Erreur : ", err);
+    }
+  };
 
   useEffect(() => {
-    const fetchCPU = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/cpu");
-        const json = await res.json();
-
-        if (!json?.cpuUtilisation && json?.cpuUtilisation !== 0) return;
-
-        const newPoint = {
-          time: new Date(json.ts).getTime(),
-          cpu: json.cpuUtilisation
-        };
-
-        setData(prev => {
-          const updated = [...prev, newPoint];
-          return updated.length > 30
-            ? updated.slice(updated.length - 30)
-            : updated;
-        });
-
-      } catch (err) {
-        console.error("Fetch CPU error:", err);
-      }
-    };
-
-    fetchCPU(); // premier appel immédiat
-
-    const interval = setInterval(fetchCPU, 10000); // 10 secondes
+    if (data.length == 0) {
+      fetchCPU()
+    }
+    const interval = setInterval(fetchCPU, 10 * 1000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={{ width: "100%", height: "100%", overflow: "visible" }}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div style={{ width: "100%", height: 280, overflow: "visible", minWidth: 0 }}>
+      <ResponsiveContainer width="100%" height={280}>
         <AreaChart
           data={data}
           margin={{ top: 20, right: 0, left: 0, bottom: 24 }}
@@ -70,7 +75,7 @@ const ChartCPU = () => {
           <XAxis
             dataKey="time"
             type="category"
-            interval={interval}
+            interval={intervalXAxis}
             tickFormatter={(value) =>
               new Date(value).toLocaleTimeString([], {
                 hour: "2-digit",
@@ -83,6 +88,7 @@ const ChartCPU = () => {
             domain={[0, 100]}
             width={30}
             tickLine={false}
+            ticks={[0, 25, 50, 75, 100]}
           />
           <Tooltip
             labelFormatter={(label) =>
