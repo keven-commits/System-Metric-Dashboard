@@ -3,13 +3,13 @@ import theme from "./theme";
 import Marge from "./marge/marge";
 import Entete from "./entete/entete";
 import { useState } from "react";
-import Dashboard from "./main/dashboard";
-import EnConstruction from "./main/enConstruction";
-
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import Dashboard from "./main/dashboard"
 
 export default function MainPage() {
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(true);
     const [largeur, setLargeur] = useState("160px");
+
     const toggleBurgerMenu = () => {
         if (isBurgerMenuOpen) {
             setLargeur("60px")
@@ -19,22 +19,9 @@ export default function MainPage() {
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
     }
 
-    const [body, setBody] = useState(<Dashboard />);
-    const onClickDashboard = () => {
-        setBody(<Dashboard />)
-    }
-    const onClickLogs = () => {
-        setBody(<EnConstruction titre={"Logs"}/>)
-    }
-    const onClickMetrics = () => {
-        setBody(<EnConstruction titre={"Metrics"}/>)
-    }
-    const onClickSettings = () => {
-        setBody(<EnConstruction titre={"Settings"}/>)
-    }
-    const onClickAlerts = () => {
-        setBody(<EnConstruction titre={"Alerts"}/>)
-    }
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isDashboard = location.pathname === "/";
 
     return (
         <Paper elevation={7}>
@@ -46,30 +33,33 @@ export default function MainPage() {
                 backgroundColor: theme.customColors.lightgrey,
                 color: theme.customColors.grey
             }}>
-                <>
-                    <Marge
-                        isOpen={isBurgerMenuOpen}
-                        largeur={largeur}
-                        onClickAlerts={onClickAlerts}
-                        onClickDashboard={onClickDashboard}
-                        onClickLogs={onClickLogs}
-                        onClickMetrics={onClickMetrics}
-                        onClickSettings={onClickSettings}
-                    />
+                <Marge
+                    isOpen={isBurgerMenuOpen}
+                    largeur={largeur}
+                    onClickAlerts={() => navigate("/alerts")}
+                    onClickDashboard={() => navigate("/")}
+                    onClickLogs={() => navigate("/logs")}
+                    onClickMetrics={() => navigate("/metrics")}
+                    onClickSettings={() => navigate("/settings")}
+                />
+                <Box sx={{
+                    width: "100%",
+                }}>
+                    <Entete onclick={toggleBurgerMenu} />
                     <Box sx={{
-                        width: "100%",
+                        marginRight: "30px",
+                        marginLeft: "30px",
+                        height: "90%"
                     }}>
-                        <Entete onclick={toggleBurgerMenu} />
-                        <Box sx={{
-                            marginRight: "30px",
-                            marginLeft: "30px",
-                            height: "90%"
-                        }}>
-                            {body}
+                        <Box sx={{ display: isDashboard ? "block" : "none", height: "100%" }}>
+                            <Dashboard />
+                        </Box>
+                        <Box sx={{ display: isDashboard ? "none" : "block", height: "100%" }}>
+                            <Outlet />
                         </Box>
                     </Box>
-                </>
+                </Box>
             </Box>
         </Paper>
-    )
+    );
 }
