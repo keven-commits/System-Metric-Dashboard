@@ -8,7 +8,6 @@ import Card from "./card";
 import { useState } from "react";
 
 export default function Dashboard() {
-    const [gridTemplateColumns, setGridTemplateColumns] = useState("1fr 1fr")
     return (
         <Box sx={{
             height: "100%",
@@ -28,7 +27,7 @@ export default function Dashboard() {
                 overflow: "auto",
                 display: { xs: "flex", md: "grid" },
                 flexDirection: "column",
-                gridTemplateColumns: gridTemplateColumns,
+                gridTemplateColumns: "1fr 1fr",
                 gridTemplateRows: "1fr 1fr",
                 justifyContent: "space-between",
                 gap: "30px",

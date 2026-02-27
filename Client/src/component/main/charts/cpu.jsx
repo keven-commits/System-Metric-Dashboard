@@ -30,8 +30,6 @@ const ChartCPU = () => {
         cpu: server.cpuUtilisation
       };
 
-      console.log(nouveauPoint)
-
       setData(prev => {
 
         const updated = [...prev, nouveauPoint];

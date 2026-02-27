@@ -14,7 +14,6 @@ Vite va te donner un lien en local Host dans le terminal pour ouvrir le contenu 
 Si tu veux vérifier les données, tu peux accèder à "Localhost:3000/cpu" "Localhost:3000/gpu" "Localhost:3000/network" "Localhost:3000/disk" pour avoir les données respective
 Tu vas pouvoir y voir un donnée "ts" qui est un time stamp qui correspond au nombre de milisecondes depuis 1970 (une unité de mesure du temps en programmation) et la donnée de la composante informatique (en % pour cpu, gpu et disk et en bytes/seconde pour network)
 On peut voir sur le navigateur un Dashboard qui montre un graph qui s'update aux 10 secondes afin de visualier les données envoyées de ton ordinateur
-Dans l'entête on peut voir une barre de recherche qui permet d'isoler les données selon les pages de la marge
 La marge permet d'accèder aux donnée de la touche respective, mais seulement Dashboard à des données pour l'instant, on verra "En constuction" pour les autres
 Voilà, plus qu'a laisser le tout fonctionner et on peut y voir les données de ton ordinateur
 

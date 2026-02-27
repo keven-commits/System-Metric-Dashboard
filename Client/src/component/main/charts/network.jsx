@@ -64,7 +64,7 @@ const ChartNetwork = () => {
 
   useEffect(() => {
 
-    if (data.length == 0) {
+    if (data.length <= 2) {
       fetchNetwork()
     }
 

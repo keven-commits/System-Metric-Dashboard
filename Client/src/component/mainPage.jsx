@@ -9,6 +9,7 @@ import Dashboard from "./main/dashboard"
 export default function MainPage() {
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(true);
     const [largeur, setLargeur] = useState("160px");
+    const [recherche, setRecherche] = useState("");
 
     const toggleBurgerMenu = () => {
         if (isBurgerMenuOpen) {
@@ -45,14 +46,18 @@ export default function MainPage() {
                 <Box sx={{
                     width: "100%",
                 }}>
-                    <Entete onclick={toggleBurgerMenu} />
+                    <Entete 
+                    onclick={toggleBurgerMenu}
+                    recherche={recherche}
+                    rechercheChange={setRecherche}
+                    />
                     <Box sx={{
                         marginRight: "30px",
                         marginLeft: "30px",
                         height: "90%"
                     }}>
                         <Box sx={{ display: isDashboard ? "block" : "none", height: "100%" }}>
-                            <Dashboard />
+                            <Dashboard recherche={recherche}/>
                         </Box>
                         <Box sx={{ display: isDashboard ? "none" : "block", height: "100%" }}>
                             <Outlet />

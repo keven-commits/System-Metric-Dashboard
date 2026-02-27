@@ -8,16 +8,8 @@ import theme from '../theme';
 import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
-import { useState } from 'react';
 
 export default function NestedList({ isOpen, active, onClickDashboard, onClickAlerts, onClickLogs, onClickMetrics, onClickSettings }) {
-
-  const [selected, setSelected] = useState(true);
-  const textStyle = {
-    fontSize: "0.95rem",
-    fontWeight: 500,
-    letterSpacing: "0.06em",
-  }
 
   const itemStyle = {
     "height": {

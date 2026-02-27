@@ -52,8 +52,8 @@ const ChartDisk = () => {
     }, []);
 
     return (
-    <div style={{ width: "100%", height: 280, overflow: "visible", minWidth: 0 }}>
-      <ResponsiveContainer width="100%" height={280}>
+    <div style={{ width: "100%", height: 280, overflow: "visible", minWidth: 0, paddingTop: "15px" }}>
+      <ResponsiveContainer width="100%" height={260}>
                 <BarChart
                     data={data}
                     margin={{

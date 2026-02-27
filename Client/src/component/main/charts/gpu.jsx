@@ -42,7 +42,7 @@ const ChartGPU = () => {
 
   useEffect(() => {
 
-    if (data.length == 0) {
+    if (data.length <= 2) {
       fetchGPU()
     }
     const interval = setInterval(fetchGPU, 10 * 1000);

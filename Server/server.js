@@ -14,6 +14,7 @@ app.get('/cpu', async (req, res) => {
         const dataCPU = await CPUUtilisation();
         res.json(dataCPU);
     } catch (err) {
+        console.log(err)
     }
 });
 
@@ -22,6 +23,7 @@ app.get("/gpu", async (req, res) => {
         const dataGPU = await GPUUtilisation();
         res.json(dataGPU);
     } catch (err) {
+        console.log(err)
     }
 });
 
@@ -30,6 +32,7 @@ app.get("/network", async (req, res) => {
         const dataNetwork = await NetworkUtilisation();
         res.json(dataNetwork);
     } catch (err) {
+        console.log(err)
     }
 });
 
@@ -38,6 +41,7 @@ app.get("/disk", async (req, res) => {
         const dataDisk = await DiskUtilisation();
         res.json(dataDisk);
     } catch (err) {
+        console.log(err)
     }
 });
 
